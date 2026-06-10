@@ -158,14 +158,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* 🚀 FLOAT SCROLL-TO-TOP TARGET INDICATOR */}
-                <button 
-                    onClick={scrollToTop}
-                    className="absolute right-6 -top-5 md:right-12 bg-[#FF2832] hover:bg-[#d61f28] text-white p-3 rounded-md transition-all duration-300 shadow-xl border border-transparent hover:border-white/20 active:scale-95 group"
-                    aria-label="Scroll back to the top area"
-                >
-                    <FaChevronUp className="text-[14px] transform group-hover:-translate-y-0.5 transition-transform" />
-                </button>
+               
 
             </div>
 

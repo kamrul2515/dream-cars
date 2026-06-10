@@ -1,16 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: 'images.unsplash.com',
-                port: '',
-                pathname: '/**',
-            },
-        ],
-    },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'webmasterdriver.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.unsplash.com', // Unsplash এর সব সাব-ডোমেন হ্যান্ডেল করবে
+      },
+    ],
+  },
 };
 
-// module.exports er bodle es module syntax use kora holo
 export default nextConfig;

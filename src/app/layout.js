@@ -4,6 +4,7 @@ import Header from "@/components/shared/Header";
 import Navbar from "@/components/shared/Navbar";
 import Brands from "@/components/shared/Brands";
 import Footer from "@/components/shared/Footer";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 
 const poppins = Poppins({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         {children}
         <Brands />
         <Footer />
+        <ScrollToTop />
         </body>
     </html>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Achivments from '@/components/shared/Achivments';
+import Meets from '@/components/shared/Meets';
 
 export const metadata = {
   title: "About Us",
@@ -181,7 +183,8 @@ const AboutPage = () => {
 
                 </div>
             </div>
-
+                    <Achivments />
+                    <Meets />
         </div>
     );
 };

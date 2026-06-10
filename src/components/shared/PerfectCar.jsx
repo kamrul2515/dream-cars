@@ -1,13 +1,11 @@
-"use client"; // Scroll triggers aar window events thakar jonno dynamic client active thakbe
+"use client"; // অ্যানিমেশন এবং গ্রুপ হোভার ইফেক্টের জন্য ক্লায়েন্ট মোড সচল থাকবে
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FiSearch } from 'react-icons/fi';
-import { IoCarSportOutline, IoDocumentTextOutline, IoChevronUpOutline } from 'react-icons/io5';
+import { IoCarSportOutline, IoDocumentTextOutline } from 'react-icons/io5';
 import { MdOutlineThumbUp } from 'react-icons/md';
 
 const PerfectCar = () => {
-    const [showScrollBtn, setShowScrollBtn] = useState(false);
-
     // Dynamic grid content array for "How it Work"
     const steps = [
         {
@@ -35,28 +33,6 @@ const PerfectCar = () => {
             desc: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium"
         }
     ];
-
-    // Scroll event trigger detect korar jonno effect handler
-    useEffect(() => {
-        const handleScrollButtonVisibility = () => {
-            if (window.scrollY > 300) {
-                setShowScrollBtn(true);
-            } else {
-                setShowScrollBtn(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScrollButtonVisibility);
-        return () => window.removeEventListener('scroll', handleScrollButtonVisibility);
-    }, []);
-
-    // Smooth Scroll To Top function
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    };
 
     return (
         <div className="relative w-full bg-white py-20 px-4 md:px-12 select-none">
@@ -93,17 +69,6 @@ const PerfectCar = () => {
                     </div>
                 ))}
             </div>
-
-            {/* Sticky Floating Scroll-To-Top Button (Figma Bottom Red Indicator Style) */}
-            <button
-                onClick={scrollToTop}
-                className={`fixed bottom-6 right-6 sm:bottom-8 sm:right-8 w-11 h-11 bg-[#FF2832] hover:bg-red-700 text-white rounded shadow-lg flex items-center justify-center transition-all duration-500 transform z-50 hover:scale-110 active:scale-95 ${
-                    showScrollBtn ? "opacity-100 translate-y-0 visible" : "opacity-0 translate-y-4 invisible"
-                }`}
-                title="Scroll to top"
-            >
-                <IoChevronUpOutline className="text-2xl font-bold animate-pulse" />
-            </button>
 
         </div>
     );
