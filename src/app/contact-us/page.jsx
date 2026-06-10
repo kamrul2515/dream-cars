@@ -93,7 +93,7 @@ const ContactUs = () => {
                         </div>
 
                         {/* 🤖 REFERENCE VISUAL COMPONENT: Mock Functional Google ReCAPTCHA Layout */}
-                        <div className="bg-white border border-gray-200 rounded p-3 flex items-center justify-between w-full max-w-[300px] shadow-sm mt-2 select-none">
+                        <div className="bg-white border border-gray-200 rounded p-3 flex items-center justify-between w-full max-w-75 shadow-sm mt-2 select-none">
                             <div className="flex items-center gap-3">
                                 <input 
                                     type="checkbox" 
