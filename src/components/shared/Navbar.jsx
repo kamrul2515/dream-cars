@@ -12,7 +12,6 @@ const Navbar = () => {
         { name: "Home", href: "/" },
         { name: "All Type of Cars", href: "/all-cars" },
         { name: "About Us", href: "/about" },
-        { name: "BookMarks", href: "/bookmarks" },
         { name: "Services", href: "/services" },
         { name: "New Cars", href: "/new-cars" },
         { name: "Old Cars", href: "/old-cars" },

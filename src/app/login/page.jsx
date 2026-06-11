@@ -1,13 +1,26 @@
+"use client";
+
 import React from 'react';
+import { useForm } from 'react-hook-form';
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   if (!isOpen) return null;
+
+  // ফর্ম সাবমিট হ্যান্ডলার
+  const handleLoginSubmit = (data) => {
+    console.log("Login Data:", data); 
+  };
+
+  console.log("Form Errors:", errors);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose} />
 
-      <div className="relative w-full max-w-[900px] bg-white rounded-sm shadow-2xl p-6 md:p-10 z-10 font-sans text-[#111111]">
+      <div className="relative w-full max-w-225 bg-white rounded-sm shadow-2xl p-6 md:p-10 z-10 font-sans text-[#111111]">
         
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 border border-gray-300 rounded-full p-1">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -18,13 +31,30 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
         <h2 className="text-3xl font-bold mb-6 border-b border-gray-100 pb-4">Login</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start mt-6">
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+          
+          <form onSubmit={handleSubmit(handleLoginSubmit)} className="space-y-4">
             <div>
-              <input type="text" placeholder="Username or Email address*" className="w-full px-4 py-3 bg-[#EEEEEE] text-gray-800 rounded-sm text-sm focus:outline-none" required />
+              <input 
+                type="email" 
+                {...register("email", { required: "Email is required" })}
+                placeholder="Username or Email address*" 
+                className="w-full px-4 py-3 bg-[#EEEEEE] text-gray-800 rounded-sm text-sm focus:outline-none"
+              />
+              {/* ইমেইল এরর মেসেজ (ট্যাগের বাইরে) */}
+              {errors.email && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.email.message}</p>}
             </div>
+
             <div>
-              <input type="password" placeholder="Password*" className="w-full px-4 py-3 bg-[#EEEEEE] text-gray-800 rounded-sm text-sm focus:outline-none" required />
+              <input 
+                type="password" 
+                {...register("password", { required: "Password is required" })}
+                placeholder="Password*" 
+                className="w-full px-4 py-3 bg-[#EEEEEE] text-gray-800 rounded-sm text-sm focus:outline-none" 
+              />
+              {/* পাসওয়ার্ড এরর মেসেজ (ট্যাগের বাইরে নিখুঁতভাবে বসানো হয়েছে) */}
+              {errors.password && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.password.message}</p>}
             </div>
+
             <div className="flex items-center gap-2 pt-2">
               <input type="checkbox" id="rememberMe" className="w-4 h-4 rounded-sm border-gray-300 text-[#EF3737] focus:ring-[#EF3737] cursor-pointer" />
               <label htmlFor="rememberMe" className="text-gray-600 text-sm font-medium cursor-pointer select-none">Remember Me</label>
