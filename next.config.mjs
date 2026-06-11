@@ -4,16 +4,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'webmasterdriver.net',
+        hostname: '**', // এটি যেকোনো ডোমেইনের ইমেজকে অনুমতি দেবে
       },
       {
-        protocol: 'https',
-        hostname: 'plus.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
+        protocol: 'http',
+        hostname: '**',
+      }
     ],
   },
 };

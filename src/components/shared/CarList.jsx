@@ -128,7 +128,7 @@ const CarList = async ({ sort, limit }) => {
 
               <div className="mt-2">
                 <Link href={`/cars/${car.id || car._id}`} className='w-full block'>
-                  <button className="w-full bg-[#111111] hover:bg-[#EF3737] text-white text-xs font-bold py-3.5 uppercase tracking-wider flex items-center justify-center gap-2 transition-colors duration-300 group">
+                  <button className="cursor-pointer w-full bg-[#111111] hover:bg-[#EF3737] text-white text-xs font-bold py-3.5 uppercase tracking-wider flex items-center justify-center gap-2 transition-colors duration-300 group">
                     View Details
                     <MdOutlineSubdirectoryArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />
                   </button>

@@ -1,6 +1,8 @@
+'use client'; // 👈 Hydration এবং ক্লায়েন্ট ইফেক্ট এরর দূর করতে এটি অবশ্যই যোগ করতে হবে
+
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link'; // Redirection-er jonno Next.js Link import kora hoyeche
+import Link from 'next/link'; 
 import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 
 import car3 from "@/assets/car3.png";
@@ -53,7 +55,6 @@ const MyCar = () => {
                         ))}
                     </ul>
 
-                    {/* Button-ke Link tag diye wrap kora hoyeche */}
                     <div>
                         <Link href="/contact-us">
                             <button className="bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] sm:text-[14px] px-8 py-3.5 rounded uppercase tracking-wider transition-all duration-300 shadow-md transform active:scale-95 inline-block">

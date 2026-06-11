@@ -124,7 +124,7 @@ const FeaturedCars = async () => {
                 {/* View Details Action Button */}
                 <div className="mt-auto pt-2">
                   <Link href={`/cars/${car._id || car.id}`} className="block w-full">
-                    <button className="w-full bg-[#111111] hover:bg-[#EF3737] text-white text-xs font-bold py-3.5 uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2">
+                    <button className="cursor-pointer w-full bg-[#111111] hover:bg-[#EF3737] text-white text-xs font-bold py-3.5 uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2">
                       <span>View Details</span>
                       <BsArrowUpRight className="text-sm stroke-[0.5]" />
                     </button>

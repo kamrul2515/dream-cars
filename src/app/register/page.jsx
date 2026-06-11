@@ -1,19 +1,85 @@
 "use client";
 
-import React from 'react';
+import { authClient } from '@/lib/auth-client';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-// 💡 এখানে প্রপ্স-এ ভুলটি ঠিক করা হয়েছে (onSwitchToLogin যুক্ত করা হয়েছে)
+// 🏎️ কাস্টম কার আইকন কম্পোনেন্ট (টনি টোস্টের বাম পাশে শো করবে)
+const CarIcon = () => (
+  <svg className="w-6 h-6 text-[#EF3737] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 5h-16l1-5zm2 9a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
+  </svg>
+);
+
 const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
-
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
   // ফর্ম সাবমিট হ্যান্ডলার
-  const handleRegisterSubmit = (data) => {
-    console.log("Register Data:", data); 
+  const handleRegisterSubmit = async (data) => {
+    console.log("Registering with Data:", data); 
+    setLoading(true);
+
+    try {
+      const { data: ress, error } = await authClient.signUp.email({
+        name: data.username, 
+        email: data.email, 
+        password: data.password, 
+        image: data.image || "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211471.png", 
+        callbackURL: "/", 
+      });
+
+      if (error) {
+        // ❌ Better-Auth থেকে এরর আসলে কার আইকন সহ টোস্ট শো করবে
+        toast.error(error.message || "Something went wrong!", {
+          icon: <CarIcon />,
+          theme: "colored"
+        });
+        setLoading(false);
+        return;
+      }
+
+      console.log("Auth Response:", ress);
+      
+      // 🎉 রেজিস্ট্রেশন সফল হলে কার আইকন সহ সাকসেস টোস্ট শো করবে
+      toast.success("Registration Successful! Welcome aboard.", {
+        icon: <CarIcon />,
+        theme: "light"
+      });
+
+      reset(); 
+      onClose(); 
+      
+    } catch (error) {
+      console.error("Signup Error:", error);
+      toast.error("Network error or server is down.", {
+        icon: <CarIcon />
+      });
+    } finally {
+      setLoading(false);
+    }
   };
+
+  // Google Sign-In হ্যান্ডলার
+  const handleGoogleSignin = async () => {
+    try {
+      const { data: res, error } = await authClient.signIn.social({ 
+        provider: "google",
+        callbackURL: "/",
+      });
+      
+      if (error) {
+        toast.error(error.message || "Google sign-in failed.");
+      } else {
+        console.log("Google Sign-In Response:", res);
+      }
+    } catch (err) {
+      console.error("Google Sign-In Error:", err);
+    }
+  }; // 👈 এখানে ক্লোজিং ব্র্যাকেট (}) মিসিং ছিল, যা ফিক্স করা হয়েছে।
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -33,7 +99,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
           
           <form onSubmit={handleSubmit(handleRegisterSubmit)} className="space-y-4">
             
-            {/* 🆕 নতুন যুক্ত করা ইউজারনেম ইনপুট ফিল্ড */}
+            {/* ১. ইউজারনেম ইনপুট ফিল্ড */}
             <div>
               <input 
                 type="text" 
@@ -44,6 +110,17 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
               {errors.username && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.username.message}</p>}
             </div>
 
+            {/* ২. Photo URL ইনপুট ফিল্ড */}
+            <div>
+              <input 
+                type="url" 
+                {...register("image")} 
+                placeholder="Profile Photo URL (Optional)" 
+                className="w-full px-4 py-3 bg-[#EEEEEE] text-gray-800 rounded-sm text-sm focus:outline-none"
+              />
+            </div>
+
+            {/* ৩. ইমেইল ইনপুট ফিল্ড */}
             <div>
               <input 
                 type="email" 
@@ -54,6 +131,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
               {errors.email && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.email.message}</p>}
             </div>
 
+            {/* ৪. পাসওয়ার্ড ইনপুট ফিল্ড */}
             <div>
               <input 
                 type="password" 
@@ -67,16 +145,18 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
               {errors.password && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.password.message}</p>}
             </div>
 
-           
-
-            <button type="submit" className="w-full md:w-auto px-10 py-3 bg-[#EF3737] text-white font-bold rounded-sm hover:bg-[#d62f2f] uppercase text-sm mt-2">
-              Register
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="w-full md:w-auto px-10 py-3 bg-[#EF3737] text-white font-bold rounded-sm hover:bg-[#d62f2f] uppercase text-sm mt-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? "Registering..." : "Register"}
             </button>
           </form>
 
           <div className="flex flex-col space-y-4 border-t md:border-t-0 md:border-l border-gray-200 pt-6 md:pt-0 md:pl-12">
             <span className="text-gray-400 font-bold text-sm uppercase">Login the Quick Way</span>
-            <button type="button" className="flex items-center justify-center gap-3 w-full border border-gray-300 rounded-sm py-2.5 px-4 hover:bg-gray-50 text-gray-700 font-medium transition-colors">
+            <button onClick={handleGoogleSignin} type="button" className="cursor-pointer flex items-center justify-center gap-3 w-full border border-gray-300 rounded-sm py-2.5 px-4 hover:bg-gray-50 text-gray-700 font-medium transition-colors">
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582l3.51-3.51C17.642 1.052 14.945 0 12 0 7.354 0 3.373 2.736 1.49 6.72l3.776 3.045z"/>
                 <path fill="#4285F4" d="M23.49 12.275c0-.825-.075-1.62-.214-2.385H12v4.51h6.44a5.508 5.508 0 0 1-2.39 3.613l3.714 2.88c2.172-2.001 3.426-4.947 3.426-8.618z"/>

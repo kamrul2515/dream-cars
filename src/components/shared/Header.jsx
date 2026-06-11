@@ -4,16 +4,29 @@ import React, { useState } from 'react';
 import logo from "@/assets/logo.png";
 import Image from 'next/image';
 import { MdCall, MdMarkEmailUnread } from 'react-icons/md';
-import { FaFacebook, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaLinkedinIn, FaWhatsapp, FaCarSide } from 'react-icons/fa'; 
 import { FaXTwitter } from 'react-icons/fa6';
 import LoginModal from '@/app/login/page'; 
-import RegisterModal from '@/app/register/page'; // পাথটি আপনার প্রজেক্ট অনুযায়ী চেক করে নেবেন
+import RegisterModal from '@/app/register/page'; 
+import { authClient } from '@/lib/auth-client';
+import { toast } from 'react-toastify';
+
+// 👈 লগআউট এবং লোডিং এর জন্য লাল কার আইকন কম্পোনেন্ট
+const RedCarIcon = () => (
+    <svg className="w-6 h-6 text-[#FF2832] flex-shrink-0 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 5h-16l1-5zm2 9a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
+    </svg>
+);
 
 const Header = () => {
+    const { data: session, isPending } = authClient.useSession();
+    const user = session?.user;
+
+    console.log("Current Session:", user);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
-    // লগইন থেকে সাইনআপে যাওয়ার ফাংশন
+    // লগইন থেকে সাইনআপে যাওয়ার ফাংশন
     const switchToRegister = () => {
         setIsLoginOpen(false);
         setIsRegisterOpen(true);
@@ -67,13 +80,46 @@ const Header = () => {
                     </div>
                     
                     {/* Login / Register Button Section */}
-                    <div>
-                        <button 
-                            onClick={() => setIsLoginOpen(true)}
-                            className="bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] px-6 py-2.5 rounded uppercase tracking-wider transition-colors duration-200"
-                        >
-                            LOGIN / REGISTER
-                        </button>
+                    <div className="min-w-[150px] flex justify-end">
+                        {isPending ? (
+                            <div className="flex items-center gap-2 text-[#FF2832]">
+                                <FaCarSide className="text-2xl animate-bounce" />
+                                <span className="text-xs font-bold tracking-wider uppercase animate-pulse">Loading...</span>
+                            </div>
+                        ) : user ? (
+                            <div className="flex items-center gap-3">
+                                <h2 className="text-sm font-semibold text-black">Hello, {user.name}</h2>
+                                <Image 
+                                    src={user.image || "https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211471.png"} 
+                                    width={40} 
+                                    height={40} 
+                                    alt="User Avatar" 
+                                    className="rounded-full object-cover border border-gray-200" 
+                                />
+                                <button 
+                                    onClick={async () => {
+                                        await authClient.signOut();
+                                        // 👈 এখানে কাস্টম লাল কার আইকন এবং পজিশন যুক্ত করা হয়েছে
+                                        toast.success("Logged out successfully!", { 
+                                            position: "top-center",
+                                            icon: <RedCarIcon />
+                                        });
+                                    }}
+                                    className="cursor-pointer bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] px-6 py-2.5 rounded uppercase tracking-wider transition-colors duration-200" 
+                                >
+                                    LOGOUT
+                                </button>
+                            </div>  
+                        ) : (
+                            <div>
+                                <button 
+                                    onClick={() => setIsLoginOpen(true)}
+                                    className="cursor-pointer bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] px-6 py-2.5 rounded uppercase tracking-wider transition-colors duration-200"
+                                >
+                                    LOGIN / REGISTER
+                                </button>
+                            </div>
+                        )}
                     </div>
                     
                 </div>

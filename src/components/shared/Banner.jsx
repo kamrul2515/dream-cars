@@ -68,7 +68,8 @@ const Banner = () => {
                         <p className="text-[15px] sm:text-[19px] md:text-[22px] font-normal tracking-wide mt-3 sm:mt-4 mb-8 sm:mb-10 drop-shadow-sm select-none opacity-95">
                             {slide.subtitle}
                         </p>
-                        <button className="bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] sm:text-[14px] px-8 py-3.5 rounded flex items-center gap-2 uppercase tracking-wider transition-all duration-300 shadow-md transform hover:scale-105">
+                        <button className="bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] sm:text-[14px] px-8 py-3.5 rounded flex items-center 
+                        cursor-pointer gap-2 uppercase tracking-wider transition-all duration-300 shadow-md transform hover:scale-105">
                             Read More <span className="text-[11px] sm:text-[12px] font-bold">➔</span>
                         </button>
                     </div>
