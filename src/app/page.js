@@ -6,6 +6,8 @@ import MyCar from "@/components/shared/MyCar";
 import PerfectCar from "@/components/shared/PerfectCar";
 
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
