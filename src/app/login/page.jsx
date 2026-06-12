@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 const CarIcon = () => (
-  <svg className="w-6 h-6 text-[#EF3737] flex-shrink-0 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg className="w-6 h-6 text-[#EF3737] shrink-0 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 5h-16l1-5zm2 9a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
   </svg>
 );
@@ -18,16 +18,12 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   if (!isOpen) return null;
 
   const handleLoginSubmit = async (data) => {
-    console.log("Login Data:", data); 
-
     const { data: res, error } = await authClient.signIn.email({
       email: data.email, 
       password: data.password, 
       rememberMe: true,
       callbackURL: "/",
     });
-
-    console.log("Login Response:", res, "Login Error:", error);
 
     if (error) {
       toast.error(error.message || "Login failed. Please try again.", {
@@ -43,16 +39,16 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     }
   };
 
+
   const handleGoogleSignin = async () => {
-    const { data: res, error } = await authClient.signIn.social({ // 👈 ডিস্ট্রাকচার এবং রেসপন্স হ্যান্ডেল করা হলো
-      provider: "google",
-      callbackURL: "/",
-    });
-    
-    if (error) {
-      toast.error(error.message || "Google sign-in failed.");
-    } else {
-      console.log("Google Sign-In Response:", res);
+    try {
+      await authClient.signIn.social({ 
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      toast.error("Google sign-in failed. Please try again.");
     }
   };
 

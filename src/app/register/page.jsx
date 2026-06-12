@@ -5,9 +5,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-// 🏎️ কাস্টম কার আইকন কম্পোনেন্ট (টনি টোস্টের বাম পাশে শো করবে)
 const CarIcon = () => (
-  <svg className="w-6 h-6 text-[#EF3737] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg className="w-6 h-6 text-[#EF3737] shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 5h-16l1-5zm2 9a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
   </svg>
 );
@@ -18,11 +17,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
   if (!isOpen) return null;
 
-  // ফর্ম সাবমিট হ্যান্ডলার
   const handleRegisterSubmit = async (data) => {
-    console.log("Registering with Data:", data); 
     setLoading(true);
-
     try {
       const { data: ress, error } = await authClient.signUp.email({
         name: data.username, 
@@ -33,7 +29,6 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
       });
 
       if (error) {
-        // ❌ Better-Auth থেকে এরর আসলে কার আইকন সহ টোস্ট শো করবে
         toast.error(error.message || "Something went wrong!", {
           icon: <CarIcon />,
           theme: "colored"
@@ -41,10 +36,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         setLoading(false);
         return;
       }
-
-      console.log("Auth Response:", ress);
       
-      // 🎉 রেজিস্ট্রেশন সফল হলে কার আইকন সহ সাকসেস টোস্ট শো করবে
       toast.success("Registration Successful! Welcome aboard.", {
         icon: <CarIcon />,
         theme: "light"
@@ -63,23 +55,18 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     }
   };
 
-  // Google Sign-In হ্যান্ডলার
+
   const handleGoogleSignin = async () => {
     try {
-      const { data: res, error } = await authClient.signIn.social({ 
+      await authClient.signIn.social({ 
         provider: "google",
         callbackURL: "/",
       });
-      
-      if (error) {
-        toast.error(error.message || "Google sign-in failed.");
-      } else {
-        console.log("Google Sign-In Response:", res);
-      }
     } catch (err) {
       console.error("Google Sign-In Error:", err);
+      toast.error("Google sign-in failed.");
     }
-  }; // 👈 এখানে ক্লোজিং ব্র্যাকেট (}) মিসিং ছিল, যা ফিক্স করা হয়েছে।
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -98,8 +85,6 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start mt-6">
           
           <form onSubmit={handleSubmit(handleRegisterSubmit)} className="space-y-4">
-            
-            {/* ১. ইউজারনেম ইনপুট ফিল্ড */}
             <div>
               <input 
                 type="text" 
@@ -110,7 +95,6 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
               {errors.username && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.username.message}</p>}
             </div>
 
-            {/* ২. Photo URL ইনপুট ফিল্ড */}
             <div>
               <input 
                 type="url" 
@@ -120,7 +104,6 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
               />
             </div>
 
-            {/* ৩. ইমেইল ইনপুট ফিল্ড */}
             <div>
               <input 
                 type="email" 
@@ -131,7 +114,6 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
               {errors.email && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.email.message}</p>}
             </div>
 
-            {/* ৪. পাসওয়ার্ড ইনপুট ফিল্ড */}
             <div>
               <input 
                 type="password" 
@@ -168,7 +150,6 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="mt-8 pt-6 border-t border-gray-100 text-center text-sm font-medium">
           <div className="text-gray-600">
             Already Have an account?{' '}
