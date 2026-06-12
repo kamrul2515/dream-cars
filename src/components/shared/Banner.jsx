@@ -30,7 +30,6 @@ const Banner = () => {
         setIsMounted(true);
     }, []);
 
-
     useEffect(() => {
         if (!isMounted) return;
         const slideInterval = setInterval(() => {
@@ -48,7 +47,6 @@ const Banner = () => {
         setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     };
 
-
     if (!isMounted) {
         return <div className="w-full h-112.5 sm:h-150 md:h-170 lg:h-180 bg-gray-900 animate-pulse" />;
     }
@@ -65,10 +63,10 @@ const Banner = () => {
                             isActive ? "opacity-100 z-10" : "opacity-0 z-0"
                         }`}
                     >
-\
+                        {/* Overlay */}
                         <div className="absolute inset-0 bg-black/35 z-20" />
                         
-\
+                        {/* Next Image Component */}
                         <Image
                             src={slide.image}
                             alt={slide.title}
@@ -78,7 +76,7 @@ const Banner = () => {
                             className="object-cover object-center w-full h-full"
                         />
 
-
+                        {/* Content */}
                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-30 px-6">
                             <h1 className="text-[32px] sm:text-[50px] md:text-[64px] font-black tracking-wide uppercase drop-shadow-md select-none max-w-5xl leading-tight">
                                 {slide.title}
