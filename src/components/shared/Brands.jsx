@@ -27,7 +27,7 @@ const Brands = () => {
         [
             { id: 5, name: "Brand 5", logo: brand5 },
             { id: 6, name: "Brand 6", logo: brand6 },
-            { id: 7, name: "Brand 1 Duplicate", logo: brand1 }, // Layout consistency mesh fill
+            { id: 7, name: "Brand 1 Duplicate", logo: brand1 }, 
             { id: 8, name: "Brand 2 Duplicate", logo: brand2 }
         ]
     ];
@@ -69,7 +69,7 @@ const Brands = () => {
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 
                 {/* Left Side Section Header Header Copy */}
-                <div className="flex-shrink-0 text-center md:text-left border-b-2 md:border-b-0 md:border-r border-gray-300 pb-4 md:pb-0 md:pr-12">
+                <div className="shrink-0 text-center md:text-left border-b-2 md:border-b-0 md:border-r border-gray-300 pb-4 md:pb-0 md:pr-12">
                     <h3 className="text-[#222222] font-black text-[22px] uppercase tracking-wider leading-none">
                         Popular <br className="hidden md:block" /> Brands
                     </h3>
@@ -77,7 +77,7 @@ const Brands = () => {
 
                 {/* Right Side Carousel Component Container */}
                 <div 
-                    className="flex-grow w-full relative min-h-[90px] flex flex-col items-center justify-center cursor-grab active:cursor-grabbing"
+                    className="grow w-full relative min-h-22.5 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing"
                     onMouseDown={(e) => handleDragStart(e.clientX)}
                     onMouseMove={(e) => handleDragMove(e.clientX)}
                     onMouseUp={handleDragEnd}
@@ -96,7 +96,7 @@ const Brands = () => {
                         {brandGroups[currentSlide].map((brand) => (
                             <div 
                                 key={brand.id} 
-                                className="relative w-[140px] h-[70px] transition-all duration-300 transform hover:scale-105 flex items-center justify-center pointer-events-none"
+                                className="relative w-35 h-17.5 transition-all duration-300 transform hover:scale-105 flex items-center justify-center pointer-events-none"
                             >
                                 <Image
                                     src={brand.logo}

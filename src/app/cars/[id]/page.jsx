@@ -222,7 +222,7 @@ const CarsDetailsPage = async ({ params }) => {
                 1907645220
               </div>
 
-              <button className="w-full bg-[#EF3737] hover:bg-[#111111] text-white text-xs font-bold py-3.5 uppercase tracking-wider transition-colors duration-300">
+              <button className="cursor-pointer w-full bg-[#EF3737] hover:bg-[#111111] text-white text-xs font-bold py-3.5 uppercase tracking-wider transition-colors duration-300">
                 View Profile
               </button>
             </div>
@@ -255,7 +255,7 @@ const CarsDetailsPage = async ({ params }) => {
                 </div>
               </div>
 
-              <button className="w-full bg-[#111111] hover:bg-[#EF3737] text-white text-xs font-bold py-3.5 uppercase tracking-wider transition-colors duration-300 mt-2">
+              <button className="cursor-pointer w-full bg-[#111111] hover:bg-[#EF3737] text-white text-xs font-bold py-3.5 uppercase tracking-wider transition-colors duration-300 mt-2">
                 Calculate
               </button>
             </div>

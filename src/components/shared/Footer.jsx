@@ -34,7 +34,7 @@ const Footer = () => {
     return (
         <footer className="w-full bg-[#1f2631] text-[#9bb0c1] font-sans antialiased selection:bg-[#FF2832]">
             
-            {/* 🌐 MAIN COLUMNS CONNECTOR LAYER */}
+            {/* MAIN COLUMNS CONNECTOR LAYER */}
             <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 
                 {/* 1. TOP CATEGORIES */}

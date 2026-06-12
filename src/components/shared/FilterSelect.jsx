@@ -7,12 +7,11 @@ const FilterSelect = ({ currentSort, currentLimit }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // ড্রপডাউন চেঞ্জ হলে ইউআরএল কোয়েরি প্যারামিটার আপডেট করার ফাংশন
+
   const handleFilterChange = (key, value) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(key, value);
     
-    // নতুন ইউআরএল-এ পুশ করবে (যেমন: /all-cars?sort=low-to-high&limit=9)
     router.push(`/all-cars?${params.toString()}`, { scroll: false });
   };
 

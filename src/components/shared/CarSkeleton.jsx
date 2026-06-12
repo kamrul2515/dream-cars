@@ -2,7 +2,7 @@ import React from 'react';
 import { FaCarSide } from 'react-icons/fa';
 
 const CarSkeleton = () => {
-  const skeletonCards = Array(6).fill(0); // লোডিং এর সময় ৬টি ডামি কার্ড দেখাবে
+  const skeletonCards = Array(6).fill(0); 
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -14,7 +14,7 @@ const CarSkeleton = () => {
           {/* Image Box Skeleton */}
           <div className="w-full h-52 bg-gray-200 relative">
             <div className="absolute inset-0 flex items-center justify-center">
-              {/* কার আইকন অ্যানিমেশন */}
+
               <FaCarSide className="text-3xl text-gray-300 animate-bounce" />
             </div>
           </div>

@@ -1,4 +1,4 @@
-'use client'; // 👈 Hydration এবং ক্লায়েন্ট ইফেক্ট এরর দূর করতে এটি অবশ্যই যোগ করতে হবে
+'use client'; 
 
 import React from 'react';
 import Image from 'next/image';

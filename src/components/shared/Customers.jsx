@@ -76,14 +76,14 @@ const Customers = () => {
                 </div>
 
                 {/* Testimonial Active Grid Component */}
-                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-[260px]">
+                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-65">
                     {testimonials[currentSlide].map((item) => (
                         <div 
                             key={item.id} 
                             className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 md:p-8 rounded-xl flex flex-col sm:flex-row gap-6 items-center sm:items-start transition-all duration-500 hover:border-white/20"
                         >
                             {/* Profile Image Wrap: Using Next.js Image Component */}
-                            <div className="relative w-[110px] h-[110px] rounded-full border-4 border-white/20 overflow-hidden flex-shrink-0 shadow-lg bg-gray-800">
+                            <div className="relative w-27.5 h-27.5 rounded-full border-4 border-white/20 overflow-hidden flex-shrink-0 shadow-lg bg-gray-800">
                                 <Image 
                                     src={item.image} 
                                     alt={item.name} 

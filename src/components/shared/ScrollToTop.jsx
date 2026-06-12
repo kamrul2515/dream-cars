@@ -6,10 +6,8 @@ import { FaChevronUp } from 'react-icons/fa';
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // স্ক্রোল পজিশন ট্র্যাক করার জন্য এফেক্ট
   useEffect(() => {
     const toggleVisibility = () => {
-      // ইউজার ৩০০ পিক্সেলের বেশি নিচে স্ক্রোল করলে বাটনটি দেখাবে
       if (window.scrollY > 300) {
         setIsVisible(true);
       } else {
@@ -21,7 +19,6 @@ const ScrollToTop = () => {
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
-  // একদম উপরে স্ক্রোল করার ফাংশন
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,

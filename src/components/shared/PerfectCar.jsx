@@ -1,4 +1,4 @@
-"use client"; // অ্যানিমেশন এবং গ্রুপ হোভার ইফেক্টের জন্য ক্লায়েন্ট মোড সচল থাকবে
+"use client"; 
 
 import React from 'react';
 import { FiSearch } from 'react-icons/fi';

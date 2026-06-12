@@ -9,28 +9,35 @@ import car2 from "@/assets/car2.jpg";
 
 const Banner = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [isMounted, setIsMounted] = useState(false); 
 
     const slides = [
         {
             id: 1,
             image: car1,
-            title: "FIND THE RIGHT CARFORYOU",
+            title: "FIND THE RIGHT CAR FOR YOU",
             subtitle: "We have more than a thousand cars for you to choose."
         },
         {
             id: 2,
             image: car2,
-            title: "PERFECT CARFORYOU",
+            title: "PERFECT CAR FOR YOU",
             subtitle: "We have more than a thousand cars for you to choose."
         }
     ];
 
+
     useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isMounted) return;
         const slideInterval = setInterval(() => {
             handleNext();
         }, 5000);
         return () => clearInterval(slideInterval);
-    }, [currentSlide]);
+    }, [currentSlide, isMounted]);
 
     const handlePrev = () => {
         setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
@@ -40,9 +47,13 @@ const Banner = () => {
         setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     };
 
+
+    if (!isMounted) {
+        return <div className="w-full h-112.5 sm:h-150 md:h-170 lg:h-180 bg-gray-900 animate-pulse" />;
+    }
+
     return (
-        /* Thik kora hoyeche: Height mobile-e 450px, tablet-e 600px, aar desktop-e 720px kora hoyeche */
-        <div className="relative w-full h-[450px] sm:h-[600px] md:h-[680px] lg:h-[720px] bg-gray-900 overflow-hidden">
+        <div className="relative w-full h-112.5 sm:h-150 md:h-170 lg:h-180 bg-gray-900 overflow-hidden">
             
             {slides.map((slide, index) => (
                 <div
@@ -68,8 +79,12 @@ const Banner = () => {
                         <p className="text-[15px] sm:text-[19px] md:text-[22px] font-normal tracking-wide mt-3 sm:mt-4 mb-8 sm:mb-10 drop-shadow-sm select-none opacity-95">
                             {slide.subtitle}
                         </p>
-                        <button className="bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] sm:text-[14px] px-8 py-3.5 rounded flex items-center 
-                        cursor-pointer gap-2 uppercase tracking-wider transition-all duration-300 shadow-md transform hover:scale-105">
+                        
+
+                        <button 
+                            suppressHydrationWarning
+                            className="bg-[#FF2832] hover:bg-red-700 text-white font-bold text-[13px] sm:text-[14px] px-8 py-3.5 rounded flex items-center cursor-pointer gap-2 uppercase tracking-wider transition-all duration-300 shadow-md transform hover:scale-105"
+                        >
                             Read More <span className="text-[11px] sm:text-[12px] font-bold">➔</span>
                         </button>
                     </div>

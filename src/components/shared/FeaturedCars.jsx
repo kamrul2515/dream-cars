@@ -5,7 +5,7 @@ import { FaRegClock, FaGasPump, FaCalendarAlt, FaCog } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
 import { BsArrowUpRight } from 'react-icons/bs';
 
-// ডাটা ফেচিং ফাংশন (সার্ভার থেকে লেটেস্ট ৩টি কার ডাটা নিয়ে আসবে)
+
 async function getFeaturedCars() {
   try {
     const res = await fetch('https://dream-cars-server.onrender.com/cars', {
@@ -13,7 +13,7 @@ async function getFeaturedCars() {
     });
     if (!res.ok) throw new Error("Failed to fetch cars data");
     const data = await res.json();
-    // ফিগমার মতো প্রথম ৩টি কার দেখানোর জন্য স্লাইস করা হলো
+
     return data.slice(0, 3);
   } catch (error) {
     console.error("Error fetching featured cars:", error);

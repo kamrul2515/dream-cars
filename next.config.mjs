@@ -4,14 +4,17 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // এটি যেকোনো ডোমেইনের ইমেজকে অনুমতি দেবে
+        hostname: '**', 
       },
       {
         protocol: 'http',
         hostname: '**',
-      }
+      },
     ],
   },
+  
+
+  devIndicators: false, 
 };
 
 export default nextConfig;

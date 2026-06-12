@@ -61,7 +61,7 @@ const Meets = () => {
               className="group bg-white rounded-md overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500"
             >
               {/* Image */}
-              <div className="relative h-[340px] overflow-hidden">
+              <div className="relative h-85 overflow-hidden">
 
                 <Image
                   src={member.image}
